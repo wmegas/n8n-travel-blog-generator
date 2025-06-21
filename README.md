@@ -1,5 +1,7 @@
 # n8n Travel Blog Generator 🌍
 
+![Workflow Screenshot](workflow-screenshot.png)
+
 This workflow automates the creation of travel blog articles for free using:
 - **Pexels API** for images
 - **LLMs** (via OpenRouter) for content generation
