@@ -1,0 +1,1421 @@
+{
+  "name": "Travel_Blog_Maker",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "=https://duckduckgo.com/html/?q={{ $('City Input').item.json.query }}+travel+blog\n",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/119.0.0.0 Safari/537.36"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        420,
+        640
+      ],
+      "id": "0424e6e2-645f-4fa1-8060-6f2d10f2fdd6",
+      "name": "Fetch Links from Duckduckgo"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        820,
+        0
+      ],
+      "id": "22399d9f-cd76-4d5c-bd10-3930be3710e7",
+      "name": "Merge Query into Images"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "meta-llama/llama-4-scout:free",
+          "mode": "id"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=This is a list of generic image URLs about {{ $json.query }} along with their respective descriptions and photographer's names:\n{{ $json[\"image_url[0]\"] }} , {{ $json[\"description[0]\"] }} , {{ $json[\"photographer[0]\"] }} \n{{ $json[\"image_url[1]\"] }} , {{ $json[\"description[1]\"] }} , {{ $json[\"photographer[1]\"] }} \n{{ $json[\"image_url[2]\"] }} , {{ $json[\"description[2]\"] }} , {{ $json[\"photographer[2]\"] }}\n{{ $json[\"image_url[3]\"] }} , {{ $json[\"description[3]\"] }} , {{ $json[\"photographer[3]\"] }}\n{{ $json[\"image_url[4]\"] }} , {{ $json[\"description[4]\"] }} , {{ $json[\"photographer[4]\"] }}\n{{ $json[\"image_url[5]\"] }} , {{ $json[\"description[5]\"] }} , {{ $json[\"photographer[5]\"] }}\n{{ $json[\"image_url[6]\"] }} , {{ $json[\"description[6]\"] }} , {{ $json[\"photographer[6]\"] }}\n{{ $json[\"image_url[7]\"] }} , {{ $json[\"description[7]\"] }} , {{ $json[\"photographer[7]\"] }}\n{{ $json[\"image_url[8]\"] }} , {{ $json[\"description[8]\"] }} , {{ $json[\"photographer[8]\"] }}\n{{ $json[\"image_url[9]\"] }} , {{ $json[\"description[9]\"] }} , {{ $json[\"photographer[9]\"] }}\n{{ $json[\"image_url[10]\"] }} , {{ $json[\"description[10]\"] }} , {{ $json[\"photographer[10]\"] }}\n{{ $json[\"image_url[11]\"] }} , {{ $json[\"description[11]\"] }} , {{ $json[\"photographer[11]\"] }}\n{{ $json[\"image_url[12]\"] }} , {{ $json[\"description[12]\"] }} , {{ $json[\"photographer[12]\"] }}\n{{ $json[\"image_url[13]\"] }} , {{ $json[\"description[13]\"] }} , {{ $json[\"photographer[13]\"] }}\n{{ $json[\"image_url[14]\"] }} , {{ $json[\"description[14]\"] }} , {{ $json[\"photographer[14]\"] }}\n{{ $json[\"image_url[15]\"] }} , {{ $json[\"description[15]\"] }} , {{ $json[\"photographer[15]\"] }}\n{{ $json[\"image_url[16]\"] }} , {{ $json[\"description[16]\"] }} , {{ $json[\"photographer[16]\"] }}\n{{ $json[\"image_url[17]\"] }} , {{ $json[\"description[17]\"] }} , {{ $json[\"photographer[17]\"] }}\n{{ $json[\"image_url[18]\"] }} , {{ $json[\"description[18]\"] }} , {{ $json[\"photographer[18]\"] }}\n{{ $json[\"image_url[19]\"] }} , {{ $json[\"description[19]\"] }} , {{ $json[\"photographer[19]\"] }}.\nThese are images of cafes and restaurants:\n{{ $json['cafe_image_url[0]'] }} , {{ $json['cafe_description[0]'] }} , {{ $json['cafe_photographer[0]'] }} ,\n{{ $json['cafe_image_url[1]'] }} , {{ $json['cafe_description[1]'] }} , {{ $json['cafe_photographer[1]'] }} ,\n{{ $json['cafe_image_url[2]'] }} , {{ $json['cafe_description[2]'] }} , {{ $json['cafe_photographer[2]'] }} ,\n{{ $json['cafe_image_url[3]'] }} , {{ $json['cafe_description[3]'] }} , {{ $json['cafe_photographer[3]'] }} ,\n{{ $json['cafe_image_url[4]'] }} , {{ $json['cafe_description[4]'] }} , {{ $json['cafe_photographer[4]'] }} ,\n{{ $json['cafe_image_url[5]'] }} , {{ $json['cafe_description[5]'] }} , {{ $json['cafe_photographer[5]'] }} ,\n{{ $json['cafe_image_url[6]'] }} , {{ $json['cafe_description[6]'] }} , {{ $json['cafe_photographer[6]'] }} ,\n{{ $json['cafe_image_url[7]'] }} , {{ $json['cafe_description[7]'] }} , {{ $json['cafe_photographer[7]'] }} ,\n{{ $json['cafe_image_url[8]'] }} , {{ $json['cafe_description[8]'] }} , {{ $json['cafe_photographer[8]'] }} ,\n{{ $json['cafe_image_url[9]'] }} , {{ $json['cafe_description[9]'] }} , {{ $json['cafe_photographer[9]'] }}.\nThese are images of nightlife:\n{{ $json['nightlifeimage_url[0]'] }} , {{ $json['nightlifedescription[0]'] }} , {{ $json['nightlifephotographer[0]'] }} , \n{{ $json['nightlifeimage_url[1]'] }} , {{ $json['nightlifedescription[1]'] }} , {{ $json['nightlifephotographer[1]'] }} , \n{{ $json['nightlifeimage_url[2]'] }} , {{ $json['nightlifedescription[2]'] }} , {{ $json['nightlifephotographer[2]'] }} , \n{{ $json['nightlifeimage_url[3]'] }} , {{ $json['nightlifedescription[3]'] }} , {{ $json['nightlifephotographer[3]'] }} , \n{{ $json['nightlifeimage_url[4]'] }} , {{ $json['nightlifedescription[4]'] }} , {{ $json['nightlifephotographer[4]'] }} , \n{{ $json['nightlifeimage_url[5]'] }} , {{ $json['nightlifedescription[5]'] }} , {{ $json['nightlifephotographer[5]'] }} , \n{{ $json['nightlifeimage_url[6]'] }} , {{ $json['nightlifedescription[6]'] }} , {{ $json['nightlifephotographer[6]'] }} , \n{{ $json['nightlifeimage_url[7]'] }} , {{ $json['nightlifedescription[7]'] }} , {{ $json['nightlifephotographer[7]'] }} , \n{{ $json['nightlifeimage_url[8]'] }} , {{ $json['nightlifedescription[8]'] }} , {{ $json['nightlifephotographer[8]'] }} , \n{{ $json['nightlifeimage_url[9]'] }} , {{ $json['nightlifedescription[9]'] }} , {{ $json['nightlifephotographer[9]'] }}. \nI want you to analyze and pick out the 8 most relevant photographs local to {{ $json.query }} , along with their description and photographer credits, in a flattened json array. Include at least one cafe/restaurant image and at least one nightlife image. Respond only with the array."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        1660,
+        300
+      ],
+      "id": "0ccafb10-9327-4e9a-a37a-04ba0bcc8ae3",
+      "name": "Image Filterer",
+      "credentials": {
+        "openAiApi": {
+          "id": "kVCTqVFULwxrGN08",
+          "name": "fod1"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9fce9bb7-c2b8-4c14-9a2a-566ba41c9e78",
+              "name": "message.images",
+              "value": "={{ $json.message.content }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2020,
+        300
+      ],
+      "id": "15edc95b-3034-4852-b8e2-8fa1dbad8927",
+      "name": "Array Renamer"
+    },
+    {
+      "parameters": {
+        "jsCode": "const html = $input.item.json.data || $input.item.json.body || '';\nconst results = [];\n\nconst pattern = /<a[^>]+class=[\"']result__a[\"'][^>]+href=[\"']([^\"']+)[\"'][^>]*>(.*?)<\\/a>/gi;\n\nlet match;\nwhile ((match = pattern.exec(html)) !== null) {\n  const href = match[1];\n  const titleRaw = match[2];\n\n  const urlMatch = href.match(/uddg=([^&]+)/);\n  if (!urlMatch) continue;\n\n  const decodedUrl = decodeURIComponent(urlMatch[1]);\n  const cleanTitle = titleRaw.replace(/<[^>]*>/g, '').trim();\n\n  results.push({ title: cleanTitle, url: decodedUrl });\n}\n\n// Wrap each result in a { json: ... } object\nreturn results.map(item => ({ json: item }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        700,
+        640
+      ],
+      "id": "78d13e05-afdf-418d-b69f-e5c31ca73b97",
+      "name": "Link Extractor"
+    },
+    {
+      "parameters": {
+        "options": {
+          "reset": false
+        }
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1000,
+        640
+      ],
+      "id": "f5b1eeeb-6647-451f-ba67-7e720977cd23",
+      "name": "Loop Over Links"
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "cssSelector": "article, .content, .post, .blog-post",
+              "skipSelectors": ".post, article, .content, .entry-content"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        1460,
+        620
+      ],
+      "id": "c0487f8e-5fa3-4962-a520-951b72778ded",
+      "name": "Content Extractor",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    json: {\n      combinedContent: items\n        .filter(item => !(item.json && item.json.error)) // Remove errors\n        .map(item => {\n          const values = Object.values(item.json || {});\n          const raw = values.join(' ');\n\n          const cleaned = raw\n            // Remove [https://...], [/blog/...], [/images/...], etc.\n            .replace(/\\[\\/?(blog|images)[^\\]]+\\]/gi, '')\n            // Remove raw paths like images/... or /blog/...\n            .replace(/\\/?(blog|images)\\/[^\\s]+/gi, '')\n            // Remove raw URLs (http/https)\n            .replace(/https?:\\/\\/[^\\s]+/g, '')\n            // Remove image extensions if any slipped through\n            .replace(/\\.(svg|jpg|jpeg|png|webp|gif)/gi, '')\n            // Remove common UI artifacts\n            .replace(/\\b(Previous|Next|Our Picks By Category)\\b/gi, '')\n            // Normalize whitespace\n            .replace(/\\n+/g, ' ')\n            .replace(/\\s+/g, ' ')\n            .trim();\n\n          return cleaned;\n        })\n        .filter(str => str.length > 0)\n        .join('\\n\\n') // Join with paragraph breaks\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1700,
+        620
+      ],
+      "id": "66a22a8c-969b-4278-a810-5931b0c63aa3",
+      "name": "Content Cleaner"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        2920,
+        460
+      ],
+      "id": "b18d841c-613c-4a51-9557-421e9b7d3df4",
+      "name": "Merge Content with Images"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/119.0.0.0 Safari/537.36"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1240,
+        720
+      ],
+      "id": "ec894dd7-63ed-4fd8-8c30-d20616c2185e",
+      "name": "Fetch Content from Links",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop through Pexels results and return each image as a separate n8n item\nreturn $json.photos.map(img => {\n  return {\n    json: {\n      image_url: img.src.original,  // full-size image from Pexels\n      description: img.alt || 'No description',  // image description\n      photographer: img.photographer  // photographer name\n    }\n  };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        200
+      ],
+      "id": "03a553ad-e99c-4e8a-98eb-0728b2d45387",
+      "name": "Cafe Image Parser"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8d30c848-1bdf-41de-81eb-3ac58c3f9411",
+              "name": "cafeimages",
+              "value": "cafe%20restaurants",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        180,
+        200
+      ],
+      "id": "958acdb2-0cec-43ac-9767-eef239ca8455",
+      "name": "Additional Cafe Search Terms"
+    },
+    {
+      "parameters": {
+        "jsCode": "const inputItems = $input.all();\nconst output = {};\n\ninputItems.forEach((item, index) => {\n  const data = item.json;\n  output[`cafe_image_url[${index}]`] = data.image_url;\n  output[`cafe_description[${index}]`] = data.description;\n  output[`cafe_photographer[${index}]`] = data.photographer;\n});\n\nreturn [{ json: output }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        200
+      ],
+      "id": "38ede21c-5001-40a3-8392-093ca997127b",
+      "name": "Cafe Image Array Flattener"
+    },
+    {
+      "parameters": {
+        "jsCode": "const inputItems = $input.all();\nconst output = {};\n\ninputItems.forEach((item, index) => {\n  const data = item.json;\n  output[`image_url[${index}]`] = data.image_url;\n  output[`description[${index}]`] = data.description;\n  output[`photographer[${index}]`] = data.photographer;\n});\n\nreturn [{ json: output }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        600,
+        0
+      ],
+      "id": "f2eccc73-101e-4de0-81d8-1694817aa4da",
+      "name": "Generic Image Array Flattener"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop through Pexels 'photos' array and return each image as a separate n8n item\nreturn $json.photos.map(photo => {\n  return {\n    json: {\n      image_url: photo.src.original, // high-res image\n      description: photo.alt || 'No description',\n      photographer: photo.photographer\n    }\n  };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        0
+      ],
+      "id": "8bba6bc4-c7f0-40fc-9f15-1e5facd91aac",
+      "name": "Generic Image Parser"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        1180,
+        180
+      ],
+      "id": "bdd8b8e2-0b48-4693-8f0e-bafb91f518c4",
+      "name": "Merge Query into More Images"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        1480,
+        300
+      ],
+      "id": "41008759-37e2-4d9f-aec1-aec11176471f",
+      "name": "Merge Query into Even More Images"
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "url": "=https://api.pexels.com/v1/search?query={{ $('City Input').item.json.query }}%20{{ $json.search }}",
+        "options": {},
+        "queryParametersUi": {
+          "parameter": [
+            {
+              "name": "query",
+              "value": "=={{$json[\"query\"]}}"
+            },
+            {
+              "name": "per_page",
+              "value": "20"
+            }
+          ]
+        }
+      },
+      "id": "d8ef2dae-a7d9-4d72-8085-b7eb0a400725",
+      "name": "Fetch Generic Images from Pexels",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 2,
+      "position": [
+        180,
+        0
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "vKix8VhKIAywZRFj",
+          "name": "pexels-api"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://api.pexels.com/v1/search?query={{ $('City Input').item.json.query }}%20{{ $json.cafeimages }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "query",
+              "value": "={{ $json.cafeimages }}"
+            },
+            {
+              "name": "per_page",
+              "value": "10"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        440,
+        200
+      ],
+      "id": "24c96cdb-e2b1-4177-b6d9-a2bc613fe0c5",
+      "name": "Fetch Cafe Images from Pexels",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "vKix8VhKIAywZRFj",
+          "name": "pexels-api"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "google/gemini-2.0-flash-exp:free",
+          "mode": "id"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a professional travel writer with a knack for vivid storytelling and practical advice. Create a comprehensive, engaging travel blog article about {{ $('Merge Query into Images').item.json.query }} that exceeds 5000 words, using the provided content and images.\n\nRequirements:\n1. Structure:\n<!DOCTYPE html>\n<html>\n<head>\n<title>[Dynamic: Insert Destination] Travel Guide</title>\n<style>\n  body {font-family: 'Arial', sans-serif; line-height: 1.6; max-width: 1200px; margin: 0 auto; padding: 20px; color: #333;}\n  h1 {color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;}\n  h2 {color: #2980b9; margin-top: 30px;}\n  .image-container {text-align: center; margin: 25px 0;}\n  .image-container img {max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);}\n  .image-caption {font-style: italic; color: #7f8c8d; margin-top: 8px;}\n  .section {margin-bottom: 40px;}\n  .tip-box {background-color: #f8f9fa; border-left: 4px solid #3498db; padding: 15px; margin: 20px 0;}\n</style>\n</head>\n<body>\n\n2. Content:\n- Start with a compelling 2-paragraph introduction that hooks readers with sensory details and an intriguing angle\n- Include 3-5 main sections with descriptive headers (e.g., \"Hidden Gems of [Destination]\", \"The Ultimate Nightlife Guide\", \"Local Secrets Most Tourists Miss\")\n- Weave in 10 relevant images from {{ $json.message.images }} with proper HTML <div class=\"image-container\"> formatting and descriptive captions and their credits\n- Use informal yet sophisticated language (imagine telling stories to a well-traveled friend)\n- Incorporate practical information from {{ $json.textContent }} naturally throughout\n- Include at least 3 \"Pro Tip\" boxes with insider advice\n- Add a thoughtful conclusion that either reflects on the experience or provides next-step suggestions\n\n3. Formatting:\n- Wrap the entire article in proper HTML tags as shown above\n- Use semantic HTML (h1 for title, h2 for sections, p for paragraphs)\n- Place images at logical breaks in the content with <div class=\"image-container\"><img src=\"IMAGE_URL\" alt=\"descriptive text\"><p class=\"image-caption\">Caption text</p></div>\n- Highlight special tips with <div class=\"tip-box\">content</div>\n\n4. Tone:\n- Friendly and approachable yet authoritative\n- Rich with sensory descriptions (help readers imagine being there)\n- Mix practical information with engaging storytelling\n- Avoid clichés and generic phrases\n\nRespond with the complete HTML document exactly as structured above, ready to publish."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        3700,
+        460
+      ],
+      "id": "2acb13b0-3372-4fb8-aed4-a62cbea74a4b",
+      "name": "OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "fXoiPSidYIyLnXf3",
+          "name": "kw3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "command": "=echo \"{{ $json.b64 }}\" | base64 -d > \"/data/travelArticles/{{ $json.slug }}.html\""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        4580,
+        460
+      ],
+      "id": "354bb1d4-9cf9-4ffd-bbc9-6f94db719554",
+      "name": "Execute Command"
+    },
+    {
+      "parameters": {
+        "amount": 180
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3440,
+        460
+      ],
+      "id": "f1045c18-7bd9-4e52-8a9a-58889c46156c",
+      "name": "Wait",
+      "webhookId": "7f724cfd-6788-4e4a-9a08-2ad7319108a8"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.pexels.com/v1/search?query={{ $('City Input').item.json.query }}%20{{ $json.nightlifeimages }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "query",
+              "value": "={{ $json.nightlifeimages }}"
+            },
+            {
+              "name": "per_page",
+              "value": "10"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        620,
+        420
+      ],
+      "id": "82a61aa4-57f2-4ab8-8410-694dd6af6e6e",
+      "name": "Fetch Night Images from Pexels",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "vKix8VhKIAywZRFj",
+          "name": "pexels-api"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop through Pexels photos array and return each image as a separate n8n item\nreturn $json.photos.map(img => {\n  return {\n    json: {\n      image_url: img.src.original,  // full-size image URL from Pexels\n      description: img.alt || 'No description',  // description or fallback\n      photographer: img.photographer  // photographer name\n    }\n  };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        840,
+        420
+      ],
+      "id": "30766e6b-a673-42d2-bad3-c673b5f3bdf9",
+      "name": "Night Image Parser"
+    },
+    {
+      "parameters": {
+        "jsCode": "const inputItems = $input.all();\nconst output = {};\n\ninputItems.forEach((item, index) => {\n  const data = item.json;\n  output[`nightimage_url[${index}]`] = data.image_url;\n  output[`nightdescription[${index}]`] = data.description;\n  output[`nightphotographer[${index}]`] = data.photographer;\n});\n\nreturn [{ json: output }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1060,
+        420
+      ],
+      "id": "dcd203e9-5c10-445c-a433-2081492655a3",
+      "name": "Night Image Array Flattener"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c3c6b301-c52b-487e-8691-60bd269c1c37",
+              "name": "textContent",
+              "value": "={{ $json.combinedContent }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2020,
+        620
+      ],
+      "id": "8a30199c-2c55-48bd-83c6-c6cb33703fa3",
+      "name": "Content Renamer"
+    },
+    {
+      "parameters": {
+        "jsCode": "const html = $input.all()[0].json.message.content;\n\n// Extract <h1> content (case-insensitive, handles multiline)\nconst h1Match = html.match(/<h1[^>]*>([\\s\\S]*?)<\\/h1>/i);\nlet title = h1Match ? h1Match[1].trim() : 'untitled-article';\n\n// Convert to filename-safe slug (replace spaces/spaces with hyphens, remove special chars)\nconst slug = title\n  .toLowerCase()\n  .replace(/[^a-z0-9\\s-]/g, '')  // Remove non-alphanumeric chars\n  .replace(/\\s+/g, '-')          // Replace spaces with hyphens\n  .replace(/-+/g, '-')           // Collapse multiple hyphens\n  .slice(0, 50);                 // Trim to 50 chars to avoid long filenames\n\nreturn [{ json: { html, slug } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4140,
+        460
+      ],
+      "id": "1cf3f00a-a2b1-4455-9632-3ef99d60a944",
+      "name": "Cleanup and Slug Generator"
+    },
+    {
+      "parameters": {
+        "amount": 120
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2240,
+        300
+      ],
+      "id": "eb87a4a8-80cf-4e6f-980c-6f5599e9926e",
+      "name": "Wait1",
+      "webhookId": "28f5db53-bd10-42f4-ae8b-0677ebd71f09"
+    },
+    {
+      "parameters": {},
+      "id": "dc715b9b-bffc-4eed-95ce-98bb1006e547",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -2020,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "country",
+              "value": "france"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "eaf32780-d6ac-44b3-bb15-46fd9f62b037",
+      "name": "Set Country",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -1800,
+        460
+      ],
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "deepseek/deepseek-r1-distill-llama-70b:free",
+          "mode": "id"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Give me a JSON array of the 10 most popular travel destinations exclusively in {{ $json.country }}. Format:\n[\n  { \"city\": \"{{$json.country}}%20Tokyo\" }\n  { \"city\": \"{{$json.country}}%20Kyoto\" },\n  ...\n]\n\nOutput only the json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d6d120d3-ff76-45fe-bac0-f18bcb1ab547",
+      "name": "Generate Destinations",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -1580,
+        460
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "bzIxFx47KnIRgO8t",
+          "name": "fod2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "const input = $json[\"message\"][\"content\"];\nlet data;\ntry {\n  data = JSON.parse(input);\n} catch (e) {\n  throw new Error(\"Invalid JSON from AI\");\n}\n\nreturn data.map(item => ({ json: item }));"
+      },
+      "id": "76b76f69-8c0e-424b-8599-d74715067592",
+      "name": "Parse AI JSON",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -1220,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "options": {
+          "reset": false
+        }
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -740,
+        440
+      ],
+      "id": "5fcb521b-53b0-4f52-bfee-28faacada2d2",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "amount": 180
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        5000,
+        860
+      ],
+      "id": "464ef333-ebdc-4ab2-a243-6579bf2ed5d6",
+      "name": "Wait2",
+      "webhookId": "f5f26595-f739-4f39-956b-00122dd196f1"
+    },
+    {
+      "parameters": {
+        "amount": 60
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -1000,
+        460
+      ],
+      "id": "632c5bd9-7195-4abc-9471-7b967b3f2bb4",
+      "name": "Wait3",
+      "webhookId": "965a73a7-d264-4b9b-9dc5-8c6882999f48"
+    },
+    {
+      "parameters": {
+        "amount": 180
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3200,
+        460
+      ],
+      "id": "21ee41f6-8eb2-447e-897e-64124187057e",
+      "name": "Wait4",
+      "webhookId": "be242878-537f-4a77-baa0-c3c88d09b252"
+    },
+    {
+      "parameters": {
+        "amount": 120
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2460,
+        300
+      ],
+      "id": "a5a89981-6f47-4281-b676-11f65f1ec320",
+      "name": "Wait5",
+      "webhookId": "9d25a8e4-4321-4ac3-a274-ab6cafc4f24e"
+    },
+    {
+      "parameters": {
+        "content": "## This is where you set the country",
+        "height": 140,
+        "width": 150,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1820,
+        300
+      ],
+      "id": "f9e0cd3f-fe12-4096-9b63-0d9d41e6c860",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## This is the destination generator. By default it generates 10 destinations. Change that to how many you need.",
+        "height": 240,
+        "width": 260
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1580,
+        200
+      ],
+      "id": "f2fdebd4-3661-43ea-9fe7-e5db551e63d9",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "query",
+              "value": "={{ $json.city }}"
+            }
+          ]
+        },
+        "options": {
+          "dotNotation": false
+        }
+      },
+      "id": "04a3c284-5bdd-4c72-baab-f50777755b9c",
+      "name": "City Input",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -460,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## This is where the images are fetches from Pexels. You must set up your credentials first.",
+        "height": 200,
+        "width": 220,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        120,
+        -220
+      ],
+      "id": "51ea1426-7986-4986-822b-ba4a999165f6",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "## This is where the relevant links are fetched from duckduckgo.",
+        "height": 80,
+        "width": 520,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        360,
+        800
+      ],
+      "id": "38f49e3d-9054-442d-b8cb-15da64d99ffa",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "## This is where the content is extracted recursively from the previously extracted links.",
+        "height": 140,
+        "width": 360,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1420,
+        780
+      ],
+      "id": "de3df860-2d75-47c5-b4f5-aa07e7066e4b",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "77a232ab-104c-4db4-9453-93ea0a98204a",
+              "name": "nightlifeimages",
+              "value": "night",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        360,
+        420
+      ],
+      "id": "13ff6b08-dff9-493f-aee5-fb43c6786ca3",
+      "name": "Additional Night Search Terms"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d68663c7-63ef-4266-a34a-96acdcdc406b",
+              "name": "search",
+              "value": "city%20landscape",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -20,
+        0
+      ],
+      "id": "19f217a1-0ce5-44d2-bd59-1d14a2e3bc6e",
+      "name": "Additional City Search Terms"
+    },
+    {
+      "parameters": {
+        "content": "## This is where the images are analysed and selected. By default it chooses 8 images. You can change it in the prompt.",
+        "height": 240,
+        "width": 260
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1660,
+        20
+      ],
+      "id": "84b9e37f-9ce6-4acf-b54a-ec89d76bca88",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "## The actual content generator. A powerful model should be used. The default is google/gemini-2.0-flash-exp:free. You can tweak the prompt to your liking.",
+        "height": 340,
+        "width": 260
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        3700,
+        80
+      ],
+      "id": "67675a5e-72c5-435b-a7d5-b930a61c1fbf",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "content": "## This node saves the generated HTML locally. You must mount your local folder to /data in docker.",
+        "height": 220,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        4520,
+        200
+      ],
+      "id": "ea54d05c-668d-4c7d-b664-45ff281cf49d",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "jsCode": "const html = $input.all()[0].json.html;\nconst b64 = Buffer.from(html).toString('base64');\nreturn [{ json: { b64, slug: $input.all()[0].json.slug } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4360,
+        460
+      ],
+      "id": "dc8b0b72-992a-44ca-9c3d-35db5b98d4c5",
+      "name": "b64 converter"
+    },
+    {
+      "parameters": {
+        "content": "# This workflow automates the creation of travel blog articles for free using:\n\n## Pexels API for images\n## LLMs (via OpenRouter) for content generation\n## Web scraping for research",
+        "height": 260,
+        "width": 860,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -2000,
+        -460
+      ],
+      "id": "90de643a-eba1-44c4-86db-bb1ce4f277f1",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "content": "# How to use\n\n## Set up credentials for Pexels.\n## Set up credentials and models for OpenRouter.\n## Enter a country name (e.g., \"Spain\") in the \"set country\" node.\n## Execute workflow.",
+        "height": 260,
+        "width": 860,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -2000,
+        -140
+      ],
+      "id": "92380367-247f-4cfa-be1b-d78f3f8b7b37",
+      "name": "Sticky Note9"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Fetch Links from Duckduckgo": {
+      "main": [
+        [
+          {
+            "node": "Link Extractor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Query into Images": {
+      "main": [
+        [
+          {
+            "node": "Merge Query into More Images",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Image Filterer": {
+      "main": [
+        [
+          {
+            "node": "Array Renamer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Array Renamer": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Link Extractor": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Links",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Links": {
+      "main": [
+        [
+          {
+            "node": "Content Extractor",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Fetch Content from Links",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Content Extractor": {
+      "main": [
+        [
+          {
+            "node": "Content Cleaner",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Content Cleaner": {
+      "main": [
+        [
+          {
+            "node": "Content Renamer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Content with Images": {
+      "main": [
+        [
+          {
+            "node": "Wait4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Content from Links": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Links",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cafe Image Parser": {
+      "main": [
+        [
+          {
+            "node": "Cafe Image Array Flattener",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Additional Cafe Search Terms": {
+      "main": [
+        [
+          {
+            "node": "Fetch Cafe Images from Pexels",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cafe Image Array Flattener": {
+      "main": [
+        [
+          {
+            "node": "Merge Query into More Images",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Generic Image Array Flattener": {
+      "main": [
+        [
+          {
+            "node": "Merge Query into Images",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generic Image Parser": {
+      "main": [
+        [
+          {
+            "node": "Generic Image Array Flattener",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Query into More Images": {
+      "main": [
+        [
+          {
+            "node": "Merge Query into Even More Images",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Query into Even More Images": {
+      "main": [
+        [
+          {
+            "node": "Image Filterer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Generic Images from Pexels": {
+      "main": [
+        [
+          {
+            "node": "Generic Image Parser",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Cafe Images from Pexels": {
+      "main": [
+        [
+          {
+            "node": "Cafe Image Parser",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI": {
+      "main": [
+        [
+          {
+            "node": "Cleanup and Slug Generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "OpenAI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Night Images from Pexels": {
+      "main": [
+        [
+          {
+            "node": "Night Image Parser",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Night Image Parser": {
+      "main": [
+        [
+          {
+            "node": "Night Image Array Flattener",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Night Image Array Flattener": {
+      "main": [
+        [
+          {
+            "node": "Merge Query into Even More Images",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Content Renamer": {
+      "main": [
+        [
+          {
+            "node": "Merge Content with Images",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Cleanup and Slug Generator": {
+      "main": [
+        [
+          {
+            "node": "b64 converter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Wait5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Country",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Country": {
+      "main": [
+        [
+          {
+            "node": "Generate Destinations",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Destinations": {
+      "main": [
+        [
+          {
+            "node": "Parse AI JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse AI JSON": {
+      "main": [
+        [
+          {
+            "node": "Wait3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "City Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait2": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait3": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Command": {
+      "main": [
+        [
+          {
+            "node": "Wait2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait4": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait5": {
+      "main": [
+        [
+          {
+            "node": "Merge Content with Images",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "City Input": {
+      "main": [
+        [
+          {
+            "node": "Fetch Links from Duckduckgo",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge Query into Images",
+            "type": "main",
+            "index": 1
+          },
+          {
+            "node": "Additional Cafe Search Terms",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Additional Night Search Terms",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Additional City Search Terms",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Additional Night Search Terms": {
+      "main": [
+        [
+          {
+            "node": "Fetch Night Images from Pexels",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Additional City Search Terms": {
+      "main": [
+        [
+          {
+            "node": "Fetch Generic Images from Pexels",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "b64 converter": {
+      "main": [
+        [
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "c13c5a7c-c798-400c-b076-1d87644ca11b",
+  "meta": {
+    "instanceId": "eb20c3b497ed3768c8e3e5f2f4334a0804c52ec4aef249ef08b5566b45a4829b"
+  },
+  "id": "SL3TjADYyL8RMhw3",
+  "tags": []
+}
